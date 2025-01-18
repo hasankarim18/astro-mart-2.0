@@ -1,26 +1,29 @@
 <div>
-
   <div>
-    <div class="product-featured-image">
-      {% if selected_variant.featured_media %}
-        <img
-          src="{{ selected_variant.featured_media | image_url }}"
-          width=""
-          height=""
-          class=""
-          alt="">
-      {% elsif product.featured_media %}
-        <img
-          src="{{ product.featured_media | image_url }}"
-          width=""
-          height=""
-          class=""
-          alt="">
-      {% else %}
-        {{ 'product-1' | placeholder_svg_tag }}
-      {% endif %}
+    <product-feature-image>
+      <div class="product-featured-image">
+        {% if selected_variant.featured_media %}
+          <img
+            data-product-feature-image
+            src="{{ selected_variant.featured_media | image_url }}"
+            width=""
+            height=""
+            class=""
+            alt="">
+        {% elsif product.featured_media %}
+          <img
+            data-product-feature-image
+            src="{{ product.featured_media | image_url }}"
+            width=""
+            height=""
+            class=""
+            alt="">
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: '' }}
+        {% endif %}
 
-    </div>
+      </div>
+    </product-feature-image>
     <div class="image-gallery"></div>
   </div>
 </div>
