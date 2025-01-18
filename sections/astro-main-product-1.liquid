@@ -1,0 +1,19 @@
+<div>
+  <div class="page-width">
+    <div class="astro-main-product">
+      <h1>Product Page</h1>
+    </div>
+    {% comment %} product page {% endcomment %}
+    {%- liquid
+      assign selected_variant = product.selected_or_first_available_variant
+    -%}
+    <div class="product-page-container">
+      <div class="product-gallery">
+        {% render 'astro-product-gallery-1'
+          , selected_variant: selected_variant
+          , product: product %}
+      </div>
+      <div class="product-info"></div>
+    </div>
+  </div>
+</div>
