@@ -366,6 +366,7 @@ body {
   {% comment %} #styles {% endcomment %}
   {{ 'tailwind.css' | asset_url | stylesheet_tag }}
   {{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
@@ -445,6 +446,7 @@ body {
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    <script defer src="{{ 'image-modal-viewer.js' |  asset_url }}"></script>
+    <script defer src="{{ 'media-modal-viewer.js' |  asset_url }}"></script>
+    <script defer src="{{ 'swiper-bundle.min.js' |  asset_url }}"></script>
   </body>
 </html>

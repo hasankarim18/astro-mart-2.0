@@ -1,5 +1,5 @@
 {{ 'astro-main-product-1.css' | asset_url | stylesheet_tag }}
-  <div>
+<div>
   <div class="page-width">
     <div class="astro-main-product">
       <h1>Product Page</h1>
@@ -21,19 +21,8 @@
       </div>
     </div>
   </div>
-  {% comment %} feature image modal {% endcomment %}
-  <div id="gallery-modal" class="feature-image-gallery-modal hidden">
+{% comment %} feature image modal {% endcomment %}
 
-    <div
-      id="modal-bg"
-      style="display: block;"
-      class="modal-bg"></div>
-    <div class="close-gallery-modal">
-      <button>Close</button>
-    </div>
-    <div id="image-modal-body" class="feature-image-gallery-modal-body "></div>
-
-  </div>
 </div>
 
 <script defer src="{{ 'astro-main-product-1.js' | asset_url }}"></script>
