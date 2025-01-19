@@ -1,0 +1,62 @@
+.image_modal_wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.image_modal_bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.3;
+  z-index: 100;
+}
+
+.close_image_modal {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  background-color: transparent;
+  z-index: 102;
+}
+
+.close_image_modal button {
+  margin: 20px;
+}
+
+.image_modal_body {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 102;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.hover-animation-start {
+  transform: scale(0.5);
+  transition: all;
+  transition-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
+.hover-animation-end {
+  transform: scale(1);
+  transition: all;
+  transition-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
