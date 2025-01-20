@@ -4,3 +4,4 @@ node_modules
 .vscode
 tailwind.config.js
 .gitignore
+README.md

@@ -1,0 +1,26 @@
+<div data-url="{{ product.url }}" data-section="{{ section.id }}">
+  {% for option in product.options_with_values %}
+    <div class="mb-2">
+      {% for option_value in option.values %}
+        <label class="capitalize text-2xl" for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">{{ option_value }}</label>
+        <input
+          value="{{ option_value |  escape }}"
+          name="{{ option.name }}-{{ option.position }}"
+          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+          type="radio"
+          {% if option_value.selected %}
+          checked
+          {% endif %}
+          data-product-url="{{ option_value.product_url }}"
+          data-option-value-id="{{ option_value.id }}"
+          {%- unless option_value.available -%}
+          disabled
+          {%- endunless -%}>
+      {% endfor %}
+    </div>
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  {% endfor %}
+
+</div>

@@ -1,0 +1,30 @@
+<div
+  class=""
+  data-url="{{ product.url }}"
+  data-section="{{ section.id }}">
+  {% for option in product.options_with_values %}
+    <label class="mb-2 capitalize text-2xl" for="{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+    <select
+      class=" focus-visible:outline-none focus-visible:shadow-none rounded-xl  text-gray-800 w-full mb-4 block p-4 border-2 "
+      name="options[{{ option.name |  escape }}]"
+      id="{{ section.id }}-{{ forloop.index0 }}">
+      {% for option_value in option.values %}
+        <option
+          {% if option.selected_value == option_value %}
+          selected
+          {% endif %}
+          style="border-bottom: 1px solid red;"
+          class=" mb-2 border-b-red-200 capitalize border-2 last:border-b-0"
+          {% unless option_value.available %}
+          disabled
+          {% endunless %}
+          value="{{ option_value |  escape }}">
+          {{ option_value | escape }}
+        </option>
+      {% endfor %}
+    </select>
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  {% endfor %}
+</div>

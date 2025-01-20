@@ -93,8 +93,6 @@ class VideoModalViewer extends HTMLElement {
   }
 
   initModal() {
-    console.log("init modal viewer");
-
     const img = this.querySelector("video");
     if (!img) {
       console.error("No <img> element found inside the custom component.");

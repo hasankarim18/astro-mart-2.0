@@ -1,117 +1,101 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<div>  
-    <image-modal-viewer>
-      <div class="product-featured-image">
-        {% if selected_variant.featured_media %}
-          <img
-            data-product-feature-image
-            src="{{ selected_variant.featured_media | image_url }}"
-            width=""
-            height=""
-            class=""
-            alt="">
-        {% elsif product.featured_media %}
-          <img
-            data-product-feature-image
-            src="{{ product.featured_media | image_url }}"
-            width=""
-            height=""
-            class=""
-            alt="">
-        {% else %}
-          {{ 'product-1' | placeholder_svg_tag: '' }}
-        {% endif %}
+<style>
+  .productMediaSlider {
+    max-width: 90vw;
+    width: 100%;
+    max-height: 90vw;
+  }
+</style>
 
-      </div>
-    </image-modal-viewer>
-    <div class="media-gallery   mt-8">
-      {% comment %} desktop media {% endcomment %}
-      <ul class="media-lists thidden lg:grid lg:grid-cols-2 gap-4">
-        {% for media in product.media %}
-          {% case media.media_type %}
-            {% when 'image' %}
-              <li class="border rounded-md overflow-hidden">
-                <image-modal-viewer>
-                  {{ media | image_url: width: 300, height: 300 | image_tag: class: "w-full h-80 cursor-pointer hover:scale-105 transition-transform duration-500" }}
-                </image-modal-viewer>
-              </li>
-            {% when 'external_video' %}
 
-              <li></li>
-            {% when 'video' %}
-              <li>
-                <video-modal-viewer>
-                  {{ media | video_tag: controls: true, class: "w-full h-80" }}
-                </video-modal-viewer>
-              </li>
-            {% when 'model' %}
-          {% else %}
-            <li class="">
-              {{ media | media_tag }}
-            </li>
-        {% endcase %}
+<div>
+  <image-modal-viewer>
+    <div class="product-featured-image bg-gray-300">
+      {% if selected_variant.featured_media %}
+        <img
+          data-product-feature-image
+          src="{{ selected_variant.featured_media | image_url }}"
+          width=""
+          height=""
+          class="cursor-pointer"
+          alt="">
+      {% elsif product.featured_media %}
+        <img
+          data-product-feature-image
+          src="{{ product.featured_media | image_url }}"
+          width=""
+          height="cussor-pointer"
+          class=""
+          alt="">
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: '' }}
+      {% endif %}
 
-      {% endfor %}
-    </ul>
-
-    <style>
-      .productMediaSlider{
-        max-width:90vw;
-        width: 100%;
-        height: 90vw;
-      }
-    </style>
-    {% comment %}  {% endcomment %}
-    <div class="swiper productMediaSlider">
-    <ul id="my-swiper" class="swiper-wrapper">  
+    </div>
+  </image-modal-viewer>
+  <div class="media-gallery   mt-8">
+    {% comment %} desktop media {% endcomment %}
+    <ul class="media-lists thidden md:grid md:grid-cols-2 gap-4">
       {% for media in product.media %}
-        <li class="swiper-slide">
         {% case media.media_type %}
           {% when 'image' %}
-            <div class="border rounded-md overflow-hidden">
+            <li class="border rounded-md overflow-hidden">
               <image-modal-viewer>
                 {{ media | image_url: width: 300, height: 300 | image_tag: class: "w-full h-80 cursor-pointer hover:scale-105 transition-transform duration-500" }}
               </image-modal-viewer>
-            </div>
+            </li>
           {% when 'external_video' %}
-
-            <div></div>
+            <li></li>
           {% when 'video' %}
-            <div>
+            <li>
               <video-modal-viewer>
                 {{ media | video_tag: controls: true, class: "w-full h-80" }}
               </video-modal-viewer>
-            </div>
+            </li>
           {% when 'model' %}
         {% else %}
-          <div class="">
+          <li class="">
             {{ media | media_tag }}
-          </div>
+          </li>
       {% endcase %}
-      </li>
+
     {% endfor %}
+  </ul>
+
+  {% comment %}  {% endcomment %}
+  {% comment %}  {% endcomment %}
+  <div class="mobile_gallery md:thidden">
+    <div class="swiper productMediaSlider">
+      <ul id="my-swiper" class="swiper-wrapper">
+        {% for media in product.media %}
+          <li class="swiper-slide">
+            {% case media.media_type %}
+              {% when 'image' %}
+                <div class="border rounded-md overflow-hidden">
+                  <image-modal-viewer>
+                    {{ media | image_url: width: 300, height: 300 | image_tag: class: "w-full h-80 cursor-pointer hover:scale-105 transition-transform duration-500" }}
+                  </image-modal-viewer>
+                </div>
+              {% when 'external_video' %}
+
+                <div></div>
+              {% when 'video' %}
+                <div>
+                  <video-modal-viewer>
+                    {{ media | video_tag: controls: true, class: "w-full h-80" }}
+                  </video-modal-viewer>
+                </div>
+              {% when 'model' %}
+            {% else %}
+              <div class="">
+                {{ media | media_tag }}
+              </div>
+          {% endcase %}
+        </li>
+      {% endfor %}
     </ul>
     <div class="swiper-pagination"></div>
   </div>
+{% comment %}  {% endcomment %}
 
 
- 
-</div>
-
-
-
-
-<!-- Initialize Swiper -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-   
-    var swiper = new Swiper(".productMediaSlider", {
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  
-  })
-
-</script>
+</div></div></div>

@@ -23,7 +23,6 @@ h-full {
   transition: all;
   transition-duration: 300ms;
   overflow: hidden;
-  border: 1px solid gray;
   height: 80vh;
   border-radius: 20px;
 }

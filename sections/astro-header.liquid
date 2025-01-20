@@ -48,9 +48,9 @@
           </ul>
           </ul>
         </div>
-        <a href="{{ routes.root_url }}" class="btn btn-ghost text-xl">
-          {% if section.settings.astro_logo %}
-            <img src="{{ section.settings.astro_logo }}" width="" height="" class="w-[100px] h-[50px]" alt="{{ shop.name }}">
+        <a href="{{ routes.root_url }}" class="text-2xl">
+          {% if settings.astro_logo != blank %}
+            <img src="{{ settings.astro_logo |  image_url  }}" width="" height="" class="w-[100px] h-[50px] rounded-lg" alt="{{ shop.name }}">
             {% else %}
               <span class="text-3xl cursor-pointer">{{ shop.name }}</span>
           {% endif %}
