@@ -16,9 +16,13 @@
           <div class="sticky top-8 left-0">
             <astro-product-info>
               {% form 'product'
-                , product %}
+                , product
+                , id: 'product_form'
+                , novalidate: 'novalidate' %}
                 <input
-                  type="hidden"
+                  id="product_variant_id"
+                  type="number"
+                  readonly
                   name="id"
                   value="{{ current_variant.id }}">
                 <div class="astro_product_form grid grid-cols-1  gap-6">
@@ -31,9 +35,9 @@
                     <h2 class="text-4xl font-semibold text-gray-800 capitalize">{{ product.title }}</h2>
                   </div>
                   {% comment %} price  {% endcomment %}
-                  <p class="flex justify-start font-bold items-center gap-2 text-3xl">
+                  <p id="product_price-{{section.id}}" class="flex justify-start font-bold items-center gap-2 text-3xl">
                     <span class="">Price:</span>
-                    <span class="">{{ current_variant.price | money }}</span>
+                    <span id="product_current_price" class="">{{ current_variant.price | money }}</span>
                     <span class=" line-through text-red-400">{{ current_variant.compare_at_price | money }}</span>
                     {% if current_variant.price < current_variant.compare_at_price %}
                       <span class="badge badge-lg badge-neutral text-3xl p-6 uppercase">sale</span>
@@ -42,13 +46,13 @@
                   {% comment %} #variant selector {% endcomment %}
                   {% comment %} {{ product.has_only_default_variant }} {% endcomment %}
                   {%- unless product.has_only_default_variant -%}
-                    <astro-variant-selector>
+                    <astro-variant-selector data-url="{{ product.url }}" data-section="{{ section.id }}">
                       {% render 'select-variant-selector'
                         , product: product
                         , section: section %}
                     </astro-variant-selector>
                     {% comment %} #option selector radio in different block {% endcomment %}
-                    <astro-variant-radio>
+                    <astro-variant-radio data-url="{{ product.url }}" data-section="{{ section.id }}">
                       {% render 'radio-variant-selector'
                         , product: product
                         , section: section %}
@@ -70,26 +74,47 @@
                   {% comment %} #description {% endcomment %}
                   <p class="text-gray-700">{{ product.description }}</p>
                   {% comment %} add to cart {% endcomment %}
-                  <div class="grow-1">
-                    <button
-                      {% unless current_variant.available %}
-                      disabled
-                      {% endunless %}
-                      type="submit"
-                      class=" capitailze btn btn-neutral mb-2 w-full btn-lg  {% unless current_variant.available %}
+                  <div id="product_addtocart-{{ section.id }}" class="grow-1">
+                    <div class="fetch-spinner">
+                      <span
+                        data-variant-spinner
+                        class="w-9 h-9 animate-spin rounded-full border-2 border-black border-r-white"
+                        viewBox="0 0 24 24"></span>
+                    </div>
+                    <div class="buttons">
+                      <button
+                        data-buy-button="buy_button-{{ section.id }}"
+                        {% unless current_variant.available %}
+                        disabled
+                        {% endunless %}
+                        type="submit"
+                        class=" capitailze btn btn-neutral mb-2 w-full btn-lg  {% unless current_variant.available %}
                       disabled
                       {% endunless %}">
-                      {% if current_variant.available == false %}
-                        sold out
-                      {% else %}
-                        <span>
-                          Add to cart</span>
-                        <span class="w-9 h-9 animate-spin rounded-full border-2 border-black border-r-white" viewBox="0 0 24 24"></span>
+                        {% if current_variant.available == false %}
+                          sold out
+                        {% else %}
+                          <span>
+                            Add to cart</span>
 
-                      {% endif %}
-                    </button>
-                    <button type="submit" class=" capitailze btn btn-neutral w-full btn-lg">Checkout</button>
+
+                        {% endif %}
+                      </button>
+                      <button
+                        data-buy-button="buy_button-{{ section.id }}"
+                        {% unless current_variant.available %}
+                        disabled
+                        {% endunless %}
+                        type="submit"
+                        class=" capitailze btn btn-neutral mb-2 w-full btn-lg  {% unless current_variant.available %}
+                      disabled
+                      {% endunless %}"
+                        type="submit"
+                        class=" capitailze btn btn-neutral w-full btn-lg">Checkout</button>
+                      <div id="variant_error" class="thidden bg-warning">Something went wrong!!!</div>
+                    </div>
                   </div>
+
                 </div>
 
               {% endform %}

@@ -1,4 +1,4 @@
-<div data-url="{{ product.url }}" data-section="{{ section.id }}">
+<div id="radio_variant_selector_div-{{ section.id }}">
   {% for option in product.options_with_values %}
     <div class="mb-2">
       {% for option_value in option.values %}
@@ -7,15 +7,13 @@
           value="{{ option_value |  escape }}"
           name="{{ option.name }}-{{ option.position }}"
           id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+          data-raido-id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
           type="radio"
           {% if option_value.selected %}
           checked
           {% endif %}
           data-product-url="{{ option_value.product_url }}"
-          data-option-value-id="{{ option_value.id }}"
-          {%- unless option_value.available -%}
-          disabled
-          {%- endunless -%}>
+          data-option-value-id="{{ option_value.id }}">
       {% endfor %}
     </div>
     <script type="application/json">
@@ -24,3 +22,7 @@
   {% endfor %}
 
 </div>
+
+{% comment %}  {%- unless option_value.available -%}
+            disabled
+          {%- endunless -%}> {% endcomment %}

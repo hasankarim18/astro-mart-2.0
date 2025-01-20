@@ -3088,6 +3088,11 @@ html {
   background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
 }
 
+.bg-warning {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity, 1)));
+}
+
 .p-2 {
   padding: 0.5rem;
 }
