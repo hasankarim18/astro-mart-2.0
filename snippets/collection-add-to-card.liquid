@@ -1,0 +1,13 @@
+<div class="card-actions">
+  <input
+    type="hidden"
+    id="variantgetid"
+    value="{{ product.selected_or_first_available_variant.id }}">
+  <button
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    data-product-id="{{ product.id }}"
+    data-collection-add-to-cart
+    name="add"
+    id="collection-add-to-cart-{{ product.id }}"
+    class="btn w-full text-2xl btn-neutral">Add to cart</button>
+</div>

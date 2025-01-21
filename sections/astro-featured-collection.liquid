@@ -1,0 +1,112 @@
+<div class="featured_collection ">
+  <div class="container">
+    <h2 class="text-center py-16 text-5xl font-semibold">
+      {{ section.settings.title }}
+    </h2>
+    {%- assign selected_collection = section.settings.collection -%}
+    {{ collecion }}
+    <div class="collection-grid grid grid-cols-3">
+
+      {% for product in collections[selected_collection].products limit: 3 %}
+        <div class="card bg-base-100 w-full shadow-xl">
+          <figure>
+            <img
+              src={{ product.images.first | image_url }}
+              width=""
+              height=""
+              class="w-full h-ful"
+              alt="Shoes" />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">{{ product.title | link_to: product.url }}</h2>
+            <p id="product_price-{{section.id}}" class="flex justify-start font-semibold items-center gap-2 text-2xl">
+              <span class="">Price:</span>
+              <span id="product_current_price" class="">{{ product.price | money }}</span>
+              <span class=" line-through text-red-400">{{ product.compare_at_price | money }}</span>
+              {% if product.price < product.compare_at_price %}
+                <span class="badge badge-lg badge-neutral text-3xl p-6 uppercase">sale</span>
+              {% endif %}
+            </p>
+            <div class="card-actions">
+              <button class="btn w-full text-2xl btn-outline btn-neutral">View Details</button>
+            </div>
+            {% render 'collection-add-to-card'
+              , product: product %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Astro Featured Collecion",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "default": "t:sections.collection-list.blocks.featured_collection.name",
+        "label": "Collection title"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Astro Featured Collecion",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addToCartButtons = document.querySelectorAll('button[data-collection-add-to-cart]')
+        const header_cart_number = document.getElementById('header_cart_number')
+        addToCartButtons.forEach((btn) => {
+            const productId = btn.dataset.productId
+            const variantId = btn.dataset.variantId
+            btn.addEventListener('click', (e) => {               
+            let formData = {
+                'items': [{
+                'id': variantId,
+                'quantity': 1
+                  }]
+                };
+                
+                fetch(window.Shopify.routes.root + 'cart/add.js', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    alert(`Product added successfully`)
+                return response.json();
+                })
+                .catch((error) => {
+                console.error('Error:', error);
+                })
+                .finally(() => {
+                    fetch(window.Shopify.routes.root + 'cart.js')
+                    .then((response) => response.json())
+                    .then((cart) => {
+                        header_cart_number.innerText = cart.item_count   
+                    })        
+                })// finally
+  
+            
+            })// event listener
+        }) // foreach
+  
+      
+    }) // dom
+</script>

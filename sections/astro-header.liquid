@@ -84,11 +84,24 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <a class="btn">Button</a>
+        <a href="{{ routes.cart_url }}">Cart <span id="header_cart_number" class="mx-1"></span> </a>
       </div>
     </div>
   </div>
 </header>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header_cart_number = document.getElementById('header_cart_number')
+  fetch(window.Shopify.routes.root + 'cart.js')
+        .then((response) => response.json())
+        .then((cart) => {
+          console.log(cart);          
+            header_cart_number.innerText = cart.item_count   
+        })  
+})
+                   
+</script>
 
 {% schema %}
   {
